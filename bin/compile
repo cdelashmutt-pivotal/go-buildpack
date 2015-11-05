@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: bin/compile <build-dir> <cache-dir> <env-dir>
-
+set -x
 set -eo pipefail
 
 # Go releases for Darwin beginning with 1.2rc1
@@ -252,9 +252,7 @@ then
       go install -v "${FLAGS[@]}" $pkgs
     else
       step "Running: godep go install ${FLAGS[@]} $pkgs"
-      find $build
       godep go install "${FLAGS[@]}" $pkgs
-      find $build
     fi
 else
     step "Running: go get ${FLAGS[@]} $pkgs"
