@@ -243,7 +243,6 @@ then
 fi
 
 unset GIT_DIR # unset git dir or it will mess with goinstall
-set -x
 cd $p
 if test -e $build/Godeps
 then
@@ -253,7 +252,9 @@ then
       go install -v "${FLAGS[@]}" $pkgs
     else
       step "Running: godep go install ${FLAGS[@]} $pkgs"
+      ls -R /
       godep go install "${FLAGS[@]}" $pkgs
+      ls -R /
     fi
 else
     step "Running: go get ${FLAGS[@]} $pkgs"
@@ -270,5 +271,3 @@ rm -rf $build/.heroku
 mkdir -p $build/.profile.d
 echo 'PATH=$PATH:$HOME/bin' > $build/.profile.d/go.sh
 cp $buildpack/vendor/concurrency.sh $build/.profile.d/
-
-ls -R /
